@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Chat";
+}
+@section styles{
+
+
+
+}
+
+
+<h2>Chat</h2>
+<div class="container">
+    Broadcast : <input type="checkbox" id="broadcast" />
+    <input type="text" id="message" />
+    <select id="to-user">
+        <option value="-1" disabled> select user</option>
+
+    </select>
+    <input type="button" id="sendmessage" value="Send" />
+    <input type="hidden" value="@User.Identity.GetUserName()" id="currentUser" />
+    <div id="chat-history">
+    </div>
+</div>
+
+
+
+@section scripts{
+
+
+    <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+    @*Remove if not using proxy*@
+    @*<script src="~/signalr/hubs"></script>*@
+    <script>
+       
+
+        setInterval(function () {
+
+            $.getJSON('/Home/GetConnectedIds', {}, function (users) {
+                console.log(users);
+
+                let selected = $("#to-user").val();
+                $("#to-user").empty();
+                $('#to-user').append($('<option>', {
+                    value: -1,
+                    text: "select user",
+                    disabled:true
+                }));
+                for (let user in users) {
+                    $('#to-user').append($('<option>', { 
+                        value: user,
+                        text: user
+                   }));
+                   
+                }
+                $("#to-user").val(selected);
+            });
+
+
+        }, 10000)
+        $(function () {
+            let currentUser = "@User.Identity.GetUserName()";
+           
+            //// with generated proxy
+            //let chat = $.connection.chatHub;
+            //chat.client.broadcastMessage = function (name, message) {
+            //    appendMessage(name, message);
+            //}
+
+            //$.connection.hub.start().done(function(){
+            //    console.log('Now connected, connection ID=' + $.connection.hub.id);
+            //    $('#sendmessage').click(function () {
+            //        chat.server.send($('#currentUser').val(), $('#message').val());
+            //        $('#message').val('').focus();
+            //    });
+
+            //});
+
+            //// without generated proxy
+            let connection = $.hubConnection();
+            connection.qs = {"username": currentUser}
+            let chatHubProxy = connection.createHubProxy('chatHub');
+            connection.start()
+                    .done(init)
+                    .fail(() => console.log('Could not Connect!'));           
+            // functions invoked from server
+            chatHubProxy.on('broadcastMessage', appendMessage);
+            chatHubProxy.on('newMessage', appendMessage)
+            // invoke server function
+            function init() {
+                console.log('connected, connection ID=' + connection.id);
+                $('#sendmessage').click(function () {
+                    debugger;
+                    if ($('#broadcast').is(':checked'))
+                        chatHubProxy.invoke('send', $('#currentUser').val(), $('#message').val());
+                    else
+                        chatHubProxy.invoke('send', $('#currentUser').val(), $("#to-user").val(), $('#message').val());
+
+                });
+            }
+
+
+            function appendMessage(name, message) {
+                $('#chat-history')
+                    .append(
+                    `<div class ="${name === currentUser ? 'text-right' : 'text-left'}">
+                        <strong>${name}</strong>:  ${message}
+                    </div>
+                    `);
+
+            }
+        });
+
+
+    </script>
+
+
+}
