@@ -38,6 +38,7 @@ namespace SignalRApp.Hubs
 
             string name = Context.QueryString["username"];
             ConnectionMapping<string>.Add(name, Context.ConnectionId);
+            Clients.All.userJoinOrLeave();
             return base.OnConnected();
         }
         public override Task OnDisconnected(bool stopCalled)
@@ -45,6 +46,7 @@ namespace SignalRApp.Hubs
 
             string name = Context.QueryString["username"];
             ConnectionMapping<string>.Remove(name, Context.ConnectionId);
+            Clients.All.userJoinOrLeave();
             return base.OnDisconnected(stopCalled);
         }
         public override Task OnReconnected()
@@ -55,6 +57,7 @@ namespace SignalRApp.Hubs
             {
                 ConnectionMapping<string>.Add(name, Context.ConnectionId);
             }
+            Clients.All.userJoinOrLeave();
 
             return base.OnReconnected();
         }
