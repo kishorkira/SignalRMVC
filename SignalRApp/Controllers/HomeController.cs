@@ -33,10 +33,6 @@ namespace SignalRApp.Controllers
             return View();
         }
 
-        public JsonResult GetConnectedIds()
-        {
-           
-            return Json(ConnectionMapping<string>.GetConnections(), JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

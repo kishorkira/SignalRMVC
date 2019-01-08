@@ -7,13 +7,73 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/chat.css" rel="stylesheet" />
+    <style>
+        input,
+        select,
+        textarea {
+            max-width: none;
+        }
 
+
+        /* Tab Navigation */
+        .nav-tabs {
+            padding: 0;
+            border: 0;
+        }
+
+            .nav-tabs > li > a {
+                background: #277c2e;
+                color: #fff;
+                border-radius: 0;
+                box-shadow: inset 0 -8px 7px -9px rgba(0,0,0,.4),-2px -2px 5px -2px rgba(0,0,0,.4);
+            }
+
+                .nav-tabs > li > a:hover {
+                    border-color: #277c2e;
+                }
+
+            .nav-tabs > li :hover {
+                color: #277c2e;
+                border-bottom: solid 2px #277c2e;
+            }
+
+            .nav-tabs > li.active {
+            }
+
+                .nav-tabs > li.active > a,
+                .nav-tabs > li.active > a:hover {
+                    background: #F5F5F5;
+                    border-top: solid 2px #277c2e;
+                    color: #277c2e;
+                    box-shadow: inset 0 0 0 0 rgba(0,0,0,.4),-2px -3px 5px -2px rgba(0,0,0,.4);
+                }
+
+        .chat-menu {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+            .chat-menu li {
+                flex-grow: 1;
+            }
+
+        .panel-title {
+            color: #277c2e;
+        }
+        /* Tab Content */
+        .tab-pane {
+            border-radius: 0;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
 }
 <input type="hidden" value="@User.Identity.GetUserName()" id="currentUser" />
 
 <div class="container">
-    <div class="col-md-4 col-lg-3">
-
+    <div class="col-md-4 col-sm-4 col-lg-3">
         <div class="panel">
             <!--Heading-->
             <div class="panel-heading">
@@ -40,17 +100,17 @@
                 <div class="nano has-scrollbar" style="height:380px">
                     <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
                         <ul class="list-unstyled media-block">
-                            @*<li class="mar-btm">
-                                    <div class="media-left">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
-                                    </div>
-                                    <div class="media-body pad-hor">
-                                        <div class="speech">
-                                            <a href="#" class="media-heading">John Doe</a>
+                            <li class="mar-btm">
+                                <div class="media-left">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
+                                </div>
+                                <div class="media-body pad-hor">
+                                    <div class="speech">
+                                        <a href="#" class="media-heading">all</a>
 
-                                        </div>
                                     </div>
-                                </li>*@
+                                </div>
+                            </li>
 
 
                         </ul>
@@ -64,12 +124,18 @@
 
             <div class="panel-footer">
                 <div class="row">
-                    to : <input type="text" name="selectedUser" id="selectedUser" value="all" />
+                    <div class="col-xs-2">
+                        <label>to: </label>
+                    </div>
+                    <div class="col-xs-10">
+
+                        <input type="text" name="selectedUser" readonly class="form-control chat-input" id="selectedUser" value="all" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-8 col-lg-9">
+    <div class="col-md-8 col-sm-8 col-lg-9">
         <div class="panel">
             <!--Heading-->
             <div class="panel-heading">
@@ -87,46 +153,93 @@
                         </ul>
                     </div>
                 </div>
-                <h3 class="panel-title">Chat</h3>
+                <h3 class="panel-title">ChatHub</h3>
             </div>
 
             <!--Widget body-->
             <div id="demo-chat-body" class="collapse in">
                 <div class="nano has-scrollbar" style="height:380px">
-                    <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
-                        <ul class="list-unstyled media-block">
-                            @*<li class="mar-btm">
-                                    <div class="media-left">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
-                                    </div>
-                                    <div class="media-body pad-hor">
-                                        <div class="speech">
-                                            <a href="#" class="media-heading">John Doe</a>
-                                            <p>Hello Lucy, how can I help you today ?</p>
-                                            <p class="speech-time">
-                                                <i class="fa fa-clock-o fa-fw"></i>09:23AM
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="mar-btm">
-                                    <div class="media-right">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
-                                    </div>
-                                    <div class="media-body pad-hor speech-right">
-                                        <div class="speech">
-                                            <a href="#" class="media-heading">Lucy Doe</a>
-                                            <p>Hi, I want to buy a new shoes.</p>
-                                            <p class="speech-time">
-                                                <i class="fa fa-clock-o fa-fw"></i> 09:23AM
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>*@
+                    <div class="nano-content " tabindex="0" style="right: -17px;">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs chat-menu" role="tablist">
+                            <li class="active">
+                                <a href="#home" role="tab" data-toggle="tab">
+                                    <icon class="fa fa-home"></icon> Home
+                                </a>
+                            </li>
 
+                            <li>
+                                <a href="#messages" role="tab" data-toggle="tab">
+                                    <i class="fa fa-envelope"></i> chats
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#settings" role="tab" data-toggle="tab">
+                                    <i class="fa fa-cog"></i> Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#profile" role="tab" data-toggle="tab">
+                                    <i class="fa fa-user"></i> Profile
+                                </a>
+                            </li>
                         </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="home">
+
+                            </div>
+                            <div class="tab-pane fade" id="messages">
+                                <ul class="list-unstyled media-block">
+                                    @*<li class="mar-btm">
+                                            <div class="media-left">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
+                                            </div>
+                                            <div class="media-body pad-hor">
+                                                <div class="speech">
+                                                    <a href="#" class="media-heading">John Doe</a>
+                                                    <p>Hello Lucy, how can I help you today ?</p>
+                                                    <p class="speech-time">
+                                                        <i class="fa fa-clock-o fa-fw"></i>09:23AM
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mar-btm">
+                                            <div class="media-right">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
+                                            </div>
+                                            <div class="media-body pad-hor speech-right">
+                                                <div class="speech">
+                                                    <a href="#" class="media-heading">Lucy Doe</a>
+                                                    <p>Hi, I want to buy a new shoes.</p>
+                                                    <p class="speech-time">
+                                                        <i class="fa fa-clock-o fa-fw"></i> 09:23AM
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>*@
+
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="profile">
+                                <h2>Profile Content Goes Here</h2>
+                            </div>
+
+                            <div class="tab-pane fade" id="settings">
+                                <h2>Settings Content Goes Here</h2>
+                            </div>
+                        </div>
+
+
+
                     </div>
-                    <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div>
+                    <div class="nano-pane">
+                        <div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);">
+                        </div>
+                    </div>
                 </div>
 
                 <!--Widget footer-->
@@ -140,13 +253,16 @@
                         </div>
 
                         <div class="col-xs-2">
-                            <button class="btn btn-primary btn-block" id="sendmessage" type="button">Send</button>
+                            <button class="btn btn-success btn-block" id="sendmessage" type="button"><i class="glyphicon glyphicon-send" style="color:white;"></i> </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <button class="btn btn-success join"> Join +</button>
+    <button class="btn btn-danger leave"> Leave -</button>
 
 </div>
 
@@ -187,23 +303,54 @@
                     .done(init)
                     .fail(() => console.log('Could not Connect!'));
             // functions invoked from server
-            chatHubProxy.on('broadcastMessage', appendMessage);
-            chatHubProxy.on('newMessage', appendMessage);
+            chatHubProxy.on('broadcastMessage', newMessageToAll);
+            chatHubProxy.on('newMessage', newMessage);
+            chatHubProxy.on('updateMessages', updateMessages);
             chatHubProxy.on('userJoinOrLeave', updateUsers)
+            chatHubProxy.on('newMemberJoinedGroupMessage', function (msg) {
+                alert(msg);
+            });
+            chatHubProxy.on('newMemberLeftGroupMessage', function (msg) {
+                alert(msg);
+            });
             // invoke server function
             function init() {
                 console.log('connected, connection ID=' + connection.id);
                 $('#sendmessage').click(function () {
                     if ($('#broadcast').is(':checked') || $('#selectedUser').val() === 'all')
-                        chatHubProxy.invoke('send', $('#currentUser').val(), $('#message').val());
+                        chatHubProxy.invoke('send', $('#currentUser').val(), $('#message').val(), new Date().toLocaleString());
                     else
-                        chatHubProxy.invoke('send', $('#currentUser').val(), $("#selectedUser").val(), $('#message').val());
+                        chatHubProxy.invoke('send', $('#currentUser').val(), $("#selectedUser").val(), $('#message').val(), new Date().toLocaleString());
 
                 });
+
+                $('.join').click(function () {
+                    chatHubProxy.invoke('joinGroup', currentUser, 'groupname');
+                });
+                $('.leave').click(function () {
+                    chatHubProxy.invoke('leaveGroup', currentUser, 'groupname');
+                });
             }
+            function updateMessages(messages) {
+                $('#demo-chat-body .list-unstyled').empty();
+                for(let message of messages) {
+                    appendMessage(message.From, message.Body, message.DateTimeStr);
+                    console.log(message.From, message.Body, message.DateTimeStr);
+                }
+            }
+            function newMessageToAll(name, message, datetime) {
+                debugger;
+                if ('all' === $('#selectedUser').val().toLowerCase()) {
+                    appendMessage(name, message, datetime);
+                }
+            }
+            function newMessage(name, message, datetime) {
+                if (name === $('#selectedUser').val() || name === currentUser) {
+                    appendMessage(name, message, datetime);
+                }
+            }
+            function appendMessage(name, message, datetime) {
 
-
-            function appendMessage(name, message) {
                 $('#demo-chat-body .list-unstyled')
                     .append(
                     `
@@ -211,47 +358,62 @@
                                 <div class =" ${name === currentUser ? 'media-right' : 'media-left'}">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
                                 </div>
-                                <div class ="media-body pad-hor ${name === currentUser ? 'speech-right' : ''}">
+                                <div class ="media-body ${name === currentUser ? 'speech-right' : ''}">
                                     <div class="speech">
-                                        <a href="#" class ="media-heading">${name} <span class ="speech-time"> <i class ="fa fa-clock-o fa-fw"></i>09:23AM</span></a>
+                                        <a href="#" class ="media-heading">${name} <span class ="speech-time"> <i class ="fa fa-clock-o fa-fw"></i>${datetime}</span></a>
                                         <p>${message}</p>
                                     </div>
                                 </div>
                             </li>
                 ` );
+
             }
 
-            function updateUsers() {
-                $.getJSON('/Home/GetConnectedIds', {}, function (users) {
-                    //console.log(users);
-                    $('#demo-online-body .list-unstyled').empty();
-                    for (let user in users) {
-                        if(user !== currentUser){
-                            $('#demo-online-body .list-unstyled')
+            function updateUsers(users) {
 
-                        .append(
-                        `
+                $('#demo-online-body .list-unstyled').empty();
+                $('#demo-online-body .list-unstyled').append(
+                    `
+                <li class="mar-btm">
+                                   <div class="media-left">
+                                       <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
+                                   </div>
+                                   <div class="media-body pad-hor">
+                                       <div class="speech">
+                                           <a href="#" class="media-heading">all</a>
+
+                                       </div>
+                                   </div>
+                               </li>
+                               `);
+
+                for (let user in users) {
+                    if (user !== currentUser) {
+                        $('#demo-online-body .list-unstyled')
+
+                    .append(
+                    `
                     <li class="mar-btm">
                                 <div class ="media-left">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
                                 </div>
                                 <div class ="media-body pad-hor">
                                     <div class="speech">
-                                        <a href="#" class ="media-heading">${user}</a>
+                                        <a href="#" >${user}</a>
                                     </div>
                                 </div>
                             </li>
                 `);
-                        }
-                        
+
+
                     }
-                });
+                }
             }
 
-            $('#demo-online-body').on('click','a',function () {
-                debugger;
+            $('#demo-online-body').on('click', 'a', function () {
                 let selectedUser = $(this).text();
                 $('#selectedUser').val(selectedUser);
+                chatHubProxy.invoke('getMessages', currentUser, selectedUser);
             });
         });
 

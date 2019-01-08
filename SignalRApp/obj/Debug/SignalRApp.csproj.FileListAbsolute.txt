@@ -83,8 +83,8 @@ E:\kishorkira\MVC\SignalRApp\SignalRApp\bin\Microsoft.Owin.Security.OAuth.xml
 E:\kishorkira\MVC\SignalRApp\SignalRApp\bin\Microsoft.Owin.Security.Google.xml
 E:\kishorkira\MVC\SignalRApp\SignalRApp\bin\Microsoft.Owin.Security.Twitter.xml
 E:\kishorkira\MVC\SignalRApp\SignalRApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-E:\kishorkira\MVC\SignalRApp\SignalRApp\obj\Debug\SignalRApp.csprojResolveAssemblyReference.cache
 E:\kishorkira\MVC\SignalRApp\SignalRApp\obj\Debug\SignalRApp.dll
 E:\kishorkira\MVC\SignalRApp\SignalRApp\obj\Debug\SignalRApp.pdb
 E:\kishorkira\MVC\SignalRApp\SignalRApp\obj\Debug\SignalRApp.Migrations.initial.resources
 E:\kishorkira\MVC\SignalRApp\SignalRApp\obj\Debug\SignalRApp.csproj.GenerateResource.Cache
+E:\kishorkira\MVC\SignalRApp\SignalRApp\obj\Debug\SignalRApp.csprojResolveAssemblyReference.cache
