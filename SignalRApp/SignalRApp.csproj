@@ -212,9 +212,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Migrations\201901040454336_initial.cs" />
-    <Compile Include="Migrations\201901040454336_initial.Designer.cs">
-      <DependentUpon>201901040454336_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201901080519345_initial.cs" />
+    <Compile Include="Migrations\201901080519345_initial.Designer.cs">
+      <DependentUpon>201901080519345_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -239,6 +239,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\chathub.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -302,8 +303,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901040454336_initial.resx">
-      <DependentUpon>201901040454336_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901080519345_initial.resx">
+      <DependentUpon>201901080519345_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
